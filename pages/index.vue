@@ -1,6 +1,42 @@
 <script setup>
 
-import projectList from '/content/projects/projectList.json'
+const projects = [
+    {
+      "id": 1,
+      "title": "Bibimhak",
+      "description": "A filesharing and community platform for ESL teachers in South Korea",
+      "projectUrl": "https://bibimhak.com",
+      "imgUrl": "_nuxt/assets/img/bibimhak.png"
+    },
+    { 
+      "id": 2,
+      "title": "Reddit Soccer Highlights",
+      "description": "A Vue.js frontend for watching soccer highlights from Reddit",
+      "projectUrl": "https://soccer-highlights-frontend.onrender.com",
+      "imgUrl": "_nuxt/assets/img/soccer.png"
+    },
+    {
+      "id": 3,
+      "title": "Evolutionary game theory simulator",
+      "description": "A sandbox and visualizer in your browser to simulate various games from game theory and economics",
+      "projectUrl": "https://liamb0t.github.io",
+      "imgUrl": "_nuxt/assets/img/game-theory.png"
+    },
+    {
+      "id": 4,
+      "title": "Advent of Code 2023",
+      "description": "Solutions to AoC 2023 in Typescript",
+      "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2023",
+      "imgUrl": "_nuxt/assets/img/aoc.jpeg"
+    },
+    {
+      "id": 5,
+      "title": "Advent of Code 2022",
+      "description": "Solutions to AoC 2022 in Python",
+      "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2022",
+      "imgUrl": "_nuxt/assets/img/aoc.jpeg"
+    }
+  ]
 
 const isMounted = ref(false);
 
@@ -19,7 +55,7 @@ onBeforeUnmount(() => {
     <div v-show="isMounted" class="projects">
       <h1>Some projects and stuff I've made</h1>
       <div class="project-grid">
-        <ProjectCard v-for="project in projectList" :key="project.id" :project="project"/>
+        <ProjectCard v-for="project in projects" :key="project.id" :project="project"/>
       </div>
     </div>
   </transition>
