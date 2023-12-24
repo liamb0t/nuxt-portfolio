@@ -12,7 +12,7 @@ defineProps({
 <template>
     <a :href="project.projectUrl">
         <div class="container">
-            <img :src="project.imgUrl" alt="">
+            <img :src="project.img" alt="">
             <p class="title">{{ project.title }}</p>
             <p class="content">{{ project.description }}</p>
         </div>

@@ -7,5 +7,5 @@ export default defineNuxtConfig({
       theme: 'github-light'
     }
   },
-  css: ['~/assets/css/main.css', '~/assets/css/base.css']
+  css: ['~/assets/css/main.css', '~/assets/css/base.css'],
 })

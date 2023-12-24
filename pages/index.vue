@@ -1,40 +1,45 @@
 <script setup>
 
+import bibimIcon from '~/assets/img/bibimhak.png'
+import aocIcon from '~/assets/img/aoc.jpeg'
+import gameTheoryIcon from '~/assets/img/game-theory.png'
+import soccerIcon from '~/assets/img/soccer.png'
+
 const projects = [
     {
       "id": 1,
       "title": "Bibimhak",
       "description": "A filesharing and community platform for ESL teachers in South Korea",
       "projectUrl": "https://bibimhak.com",
-      "imgUrl": "_nuxt/assets/img/bibimhak.png"
+      "img": bibimIcon
     },
     { 
       "id": 2,
       "title": "Reddit Soccer Highlights",
       "description": "A Vue.js frontend for watching soccer highlights from Reddit",
       "projectUrl": "https://soccer-highlights-frontend.onrender.com",
-      "imgUrl": "_nuxt/assets/img/soccer.png"
+      "img": soccerIcon
     },
     {
       "id": 3,
       "title": "Evolutionary game theory simulator",
       "description": "A sandbox and visualizer in your browser to simulate various games from game theory and economics",
       "projectUrl": "https://liamb0t.github.io",
-      "imgUrl": "_nuxt/assets/img/game-theory.png"
+      "img": gameTheoryIcon
     },
     {
       "id": 4,
       "title": "Advent of Code 2023",
       "description": "Solutions to AoC 2023 in Typescript",
       "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2023",
-      "imgUrl": "_nuxt/assets/img/aoc.jpeg"
+      "img": aocIcon
     },
     {
       "id": 5,
       "title": "Advent of Code 2022",
       "description": "Solutions to AoC 2022 in Python",
       "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2022",
-      "imgUrl": "_nuxt/assets/img/aoc.jpeg"
+      "img": aocIcon
     }
   ]
 
