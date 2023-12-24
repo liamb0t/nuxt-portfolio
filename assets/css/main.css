@@ -1,0 +1,21 @@
+@import './base.css';
+
+#__nuxt {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: var(--color-text);
+  transition: 0.4s;
+}
+
+pre {
+  background-color: rgb(246, 240, 240);
+  font-size: 12px;
+  padding: 1.5rem;
+}
