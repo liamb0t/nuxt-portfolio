@@ -1,5 +1,5 @@
 ---
-title: Making an Evolutionary Game Theory Visualizer in JS
+title: Making an Evolutionary Game Theory Visualizer in Vanilla JS
 dates:
     published: "2023-12-24"
 ---
@@ -9,15 +9,22 @@ that simulated various games from game theory, where you could tweak and change 
 I had already begun working on this sort of thing at university in my final year as a grad student for my thesis, 
 but it was only a single game (the Utlimatum game) that simply printed out the output as images using heatmaps from Matplotlib in Python. Since it was written in Python, it also meant trying to run the simulation on grids with thousands and thousands of agents at a time, which became painstakingly slow in comparison to a faster language, even JS. 
 
+&nbsp;  
 
 The project did lead to some cool exporations of other games that I probably shouldn't have been spending time on since they weren't really relevant to my research but nevertheless I stumbled across during my readings. One such simulation was this implemenation of the Prisoners Dilemma on a 2D grid by Nowak-May that leads to some interesting fractal patterns under certain conditions. I have a repo on my github that implemenents and produces the same results as the paper written in Python. 
 
+&nbsp;  
+
 As mentioned before however, Python was probably not a great choice of language especially since I wanted to run the simulations on extremely large grids and be able to adjust parameters on the fly without having to stop and re-execute the program everytime an adjustment was made. Thus, JS! I had been meaning to learn web-dev at some point and as a person who is very much a learn by doing kind of person, it was the perfect project to start off my journey into JS. With no special frameworks or ChatGPT to help at the time, I jumped right in and started looking at how to implement Conways Game of Life in JS as a simple jumping off point.
+
+&nbsp;  
 
 The great thing about these sort of programs or "celluar automata" is that once you learn how to implement one and you know the formula of how to write a grid, retreive an agents neighbours, update the grid and so on is that implementing new games with different rules becomes a breeze because they all sort of follow the same pattern. So learning how to write Conways Game of Life, a very simple celluar automata, that was really all the knowledge I needed to start experimenting with other games. The only key difference you have to watch out for when implementing a celluar automata that threw me off the first few times I started working with them is how you update the agents at the end of a life cycle. Is it synchronous or asynchronous? That is, do all agents update their strategies simultanously at the end of a life cycle or do they adjust their strategy immediately after playing a game? Because an agents strategy affects a neighbours strategy which affects their neighbours strategy which affects theirs neighbours strategy and so on, the synchronosity of the update rule must be taken into consideration if the game is to be implemented as expected. In fact, this years Advent of Code had a grid problem where I wasn't getting the intended result until I realised I was stupidly updating the grid asynchrously. I really should have spotted my error earlier given how many of these type of problems I've done before.
 
+&nbsp;  
 One way in Python to update an array synchrously is simple to make a copy of the original array and update the copy during play while using the information from the original array for the game. Then at the beginning or end of each generation (it may depend on your specific case) is just to swap the new grid with the old grid. In Python though most of the time you will need to make a deepcopy of the original, otherwise the original will also get modified and the synchronous update won't work. 
 
+&nbsp;  
 ```python
 
 # Won't work because grid_copy just references grid
@@ -36,8 +43,10 @@ grid_copy = deepcopy(grid)
 
 ```
 
+&nbsp;  
 Implementing Conways Game of Life in JS was simple enough, but I wanted to do more with my visualizer. There were two parts that I wanted to do differently from others: 1. Do something cool with the grid. 2. Add lots of parameters the user can adjust! Most visualizers of celluar automata simply just draw the agents and strategies as squares of different colors and call it a day, but this isn't very pleasing visually. First off, I wanted to add a transition effect when an agent changes their strategy so their colours would change smoothly and blend into their new strategies color. Since we can represent colors using RGB values that are just numbers from 0-255 for each red, green and blue value, I thought the simplest way was just to get the RGB values of the new strategy and increment (or decrement) the values of the old color until they equal the new colors RGB values. The faster or the bigger the value of the increment leads to a sharper or quicker transition, while a lower value, with 1 being the lowest, leads to a very slow and smooth transition. 
 
+&nbsp;  
 Here is the function I wrote in Javascript to do this:
 
 ```javascript
@@ -57,10 +66,13 @@ this.calcRGBcolor = transitionSpeed => {
     };
 ```
 
+&nbsp;  
 Each agent has a `strategy` attribute that represents their current strategy and a `strategyNew` attribute that represents their new strategy if they have one. If they don't have one, we can simply exit the function since their color will be the same, so we don't have to draw them. If they do have a new color, we get the new color from the colors store and we simply just increment or decrement the old value mulitplied by the `transitionSpeed` argument. Then we return the new value as a string which we will use in our draw function to draw the agent on the canvas. Whether this is the best way or not to do this, probably not, but it works and was simple enough to implement. One could probably store the RGB values as three seperate attributes instead of an array and then can avoid using indexes for some cleaner code, but performance wise it doesn't matter.  
 
+&nbsp;  
 The next thing I wanted to do to make the grid more interesting was add some kind of interaction beyond being able to to draw agents to the grid. This feature is purely aesthetic and at the time educational for me but neverthless provides a pretty cool user experience. When a user hovers over the grid with their mouse the agents around the mouse cursor will grow and when the user moves away from those agents they will shrink back to normal size, thus creating a cool trail effect. Basically to acheive this we just add an arbitrarily sized square boundary around our current mouse position and then agents check via their update function whether they are inside that boundary. If they are, they increase in size, and if not they, they shrink back to normal. In our update function we check this by checking the distance between the mouses `x, y` coords and the agents `x, y` coords and see if it falls within the range of our boundary:
 
+&nbsp;  
 ```javascript
 this.update = function() {
     if (drawMode === false) {
@@ -82,6 +94,7 @@ this.update = function() {
     }
 ```
 
+&nbsp;  
 So now agents colors will change smoothly and we've got some cool hover effects that don't really do anything but look cool nonetheless. But what I really wanted was to make the agents move around the grid as if they were really interacting as after all, that is what they are doing! To do this I did it as simply as I could think with some very basic random walking. Each cell would have an arbitrarily defined boundary around them and then move in a random direction each step as long as they are within that boundary. So we just get two random values `dx, dy` as the direction the cell will walk in and mutliply it by its step length. Then we check if the new direction is within the bounds of the cells boundaries which is created just by adding a new value to the existing `x, y` coordinates of the cell. If it is, then we walk in that direction: 
 
 ```javascript
@@ -98,4 +111,121 @@ So now agents colors will change smoothly and we've got some cool hover effects 
 
 Very simple solution but it makes our grid appear much more dynamic and gives the illusion that the agents are actually moving about and interacting with each other!
 
-That pretty much takes care of the grid side of things, there's alot more I could have done here but I was satisfied with it how it looked as is. So now lets move on to the where the real fun begins: adding some parameters the user can adjust while running a simulation! Again there are infinite things one could do here but the main things I
+&nbsp;  
+
+That pretty much takes care of the grid side of things, there's alot more I could have done here but I was satisfied with it how it looked as is. So with the additions made to the grid complete, now I could move on the where the real fun begins: adding some parameters the user can adjust while running a simulation! Again there are infinite things one could do here and in the future I might add some more stuff, but originally there were just a few main things I wanted to do. One of the simplest things I could do is give the user the ability to choose the size of an agents neighbourhood. In the visualizer, there are two options, a neighbourhood of 4 or a neighbourhood of 8. Some games respond differently when the neighbourhood size is bigger and smaller and consequently different pattersn might emerge too. 
+
+&nbsp;  
+
+The implementation is pretty simple. Each agent has a findNeighbours method and an array of neighbours that gets intialized once when the game is created. We simply loop through each of the 8 possbile directions and find the new x, y coordinates, which is just the x, y coordinates of the agent plus the new direction. Then we find the agent at the new coordinates on the gameboard and push it to the agents neighbours.
+
+```javascript
+this.findNeighbours = function(gameBoard) {
+        const directions = [
+            [width, 0],
+            [-width, 0],
+            [0, height],
+            [0, -height],
+            [width, height],
+            [-width, height],
+            [width, -height],
+            [-width, -height],
+        ];
+        
+        for (const [dirX, dirY] of directions) {
+            const targetX = this.x + dirX;
+            const targetY = this.y + dirY;
+    
+            const neighbor = gameBoard.find(rect => rect.x === targetX && rect.y === targetY);
+    
+            if (neighbor) {
+                this.neighbours.push(neighbor);
+            }
+        }
+    };
+```
+
+When a user changes the value of the neighbourhood type, we can just update a global variable called neighbourhood type and then when we run the game, we just slice the array containing the coordinates of agents neighbours by the length of neighbours we want. 
+
+The main thing I really wanted to use however was to allow the user to choose the rules that determine how an agent chooses to update their strategy at the end of each generation of play. In the visualizer there are three rules to choose from: a determinstic update, where agents strictly copy the best strategy in their neighbour. A probalistic update, where agents choose a random player in their neighbourhood and if that players strategy got a higher payoff, copy that strategy. And a biological update where the rules sort of mimic that of biology, not so much game theory.
+
+The determinstic update is pretty straightfoward. We just loop through each neighbour and update the highest seen score. If a neighbour has a better score, we update the highscore and the strategy. We continue this for each neighbour and at the end compare if the agents strategy has a better score than the highest score of its neighbours. If it isn't the case, we set the agents new strategy to the strategy with the highest score. 
+
+```javascript
+this.updateDeterministic = function(agent) {
+        let bestStrat = undefined;
+        let highScore = 0;
+
+        this.neighbours.forEach(neighbour => {
+            if (neighbour.score > highScore) {
+                highScore = neighbour.score;
+                bestStrat = neighbour.strategy;
+            }
+        });
+        if (agent.score < highScore) {
+            agent.strategyNew = bestStrat;
+        }
+    }
+```
+
+The random update is a lot simpler because we don't need loop through each neighbour, we just select one random neighbour from the array of neighbours and compare its winnings to the agents winnings and update strategies accordingly.
+
+```javascript
+ this.updateRandomly = function(agent) {
+        let neighbour = neighbours[Math.floor(Math.random() * neighbours.length)];
+        if (agent.score < neighbour.score) {
+            agent.strategyNew = neighbour.strategy;
+        }
+        else {
+            agent.strategyNew = agent.strategy;
+        }   
+    }
+```
+
+The user can then toggle the update rule while the simulation is running without reseting the game! If the biological rule is chosen (not chosen) we toggle its display accordingly because some games have logic that's not eally compatible with this rule (for example, segregation).
+
+```javascript
+document.querySelector('#update-rules-menu').onchange = function() {
+    updateRule = parseInt(this.value);
+    if (updateRule === 2) {
+        document.querySelector('#bio-proportions').style.display = 'block';
+    }
+    else {
+        document.querySelector('#bio-proportions').style.display = 'none';
+    }
+}
+```
+
+![image alt text](/img/update-normal.gif)
+
+![image alt text](/img/update-random.gif)
+
+The effects of which update rule is used can really be seen the most in rock-paper-scissors! The deterministic version produces very square and identical patterns while the probalistic update rule results in beautiful swirly patterns!
+
+So how do we use the update rule? At the end of a round of play, we need to loop through the gameboard and run the update rule on each agent that is playing the game (is not an empty cell). Notice in the previous code when we update an agents strategy in the update rules, we update the agents newStrategy attribute and not its strategy attribute because of the double buffering as mentioned earlier! Then we swap these two attributes and this keeps the gameboard in sync and does not cause any weird issues whilst we are updating the agents. 
+
+```javascript
+this.updateStrategies = function(rect, updateRule) {
+    if (updateRule === 0) {
+        this.updateDeterministic(rect);
+    }
+    if (updateRule === 1) {
+        this.updateRandomly(rect);
+    }
+    if (updateRule === 2) {
+        this.updateBiological(rect);
+    }
+}
+
+function animate() {
+    if (start) {
+        for (var i = 0; i < rectsArray.length; i++) {
+            
+            if (rectsArray[i].strategy != 'empty') {
+                game.updateStrategies(rectsArray[i], updateRule);
+            }
+        }
+    }
+}
+```
+

@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/content'],
   content: {
     highlight: {
-      theme: 'github-light'
+      theme: 'github-dark'
     }
   },
   css: ['~/assets/css/main.css', '~/assets/css/base.css'],

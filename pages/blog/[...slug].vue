@@ -12,11 +12,14 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
     <span class="loader-text">Loading</span>
   </div>
  
-  <h1>{{ blogPost.title }}</h1>
+  <div class="post-container">
+    <h1>{{ blogPost.title }}</h1>
   <span>{{ blogPost.dates.published }}</span>
   <transition name="fade">
     <ContentDoc />
   </transition>
+  </div>
+  
 </template>
 
 <style scoped>
