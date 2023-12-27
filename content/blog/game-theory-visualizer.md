@@ -44,7 +44,19 @@ grid_copy = deepcopy(grid)
 ```
 
 &nbsp;  
-Implementing Conways Game of Life in JS was simple enough, but I wanted to do more with my visualizer. There were two parts that I wanted to do differently from others: 1. Do something cool with the grid. 2. Add lots of parameters the user can adjust! Most visualizers of celluar automata simply just draw the agents and strategies as squares of different colors and call it a day, but this isn't very pleasing visually. First off, I wanted to add a transition effect when an agent changes their strategy so their colours would change smoothly and blend into their new strategies color. Since we can represent colors using RGB values that are just numbers from 0-255 for each red, green and blue value, I thought the simplest way was just to get the RGB values of the new strategy and increment (or decrement) the values of the old color until they equal the new colors RGB values. The faster or the bigger the value of the increment leads to a sharper or quicker transition, while a lower value, with 1 being the lowest, leads to a very slow and smooth transition. 
+Implementing Conways Game of Life in JS was simple enough, but I wanted to do more with my visualizer. There were two parts that I wanted to do differently from others: 1. Do something cool with the grid. 2. Add lots of parameters the user can adjust! Most visualizers of celluar automata simply just draw the agents and strategies as squares of different colors and call it a day, but this isn't very pleasing visually. 
+
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 1rem">
+    <figure>
+        <img style="height: 22rem; width: 22rem; margin-right: 1rem; filter: brightness(1.5)" src="/img/game-theory/grid-basic.gif" />
+        <figcaption style="text-align:center">Basic grid </figcaption>
+    </figure>
+</div>
+
+&nbsp;  
+
+
+First off, I wanted to add a transition effect when an agent changes their strategy so their colours would change smoothly and blend into their new strategies color. Since we can represent colors using RGB values that are just numbers from 0-255 for each red, green and blue value, I thought the simplest way was just to get the RGB values of the new strategy and increment (or decrement) the values of the old color until they equal the new colors RGB values. The faster or the bigger the value of the increment leads to a sharper or quicker transition, while a lower value, with 1 being the lowest, leads to a very slow and smooth transition. 
 
 &nbsp;  
 Here is the function I wrote in Javascript to do this:
@@ -67,7 +79,16 @@ this.calcRGBcolor = transitionSpeed => {
 ```
 
 &nbsp;  
-Each agent has a `strategy` attribute that represents their current strategy and a `strategyNew` attribute that represents their new strategy if they have one. If they don't have one, we can simply exit the function since their color will be the same, so we don't have to draw them. If they do have a new color, we get the new color from the colors store and we simply just increment or decrement the old value mulitplied by the `transitionSpeed` argument. Then we return the new value as a string which we will use in our draw function to draw the agent on the canvas. Whether this is the best way or not to do this, probably not, but it works and was simple enough to implement. One could probably store the RGB values as three seperate attributes instead of an array and then can avoid using indexes for some cleaner code, but performance wise it doesn't matter.  
+Each agent has a `strategy` attribute that represents their current strategy and a `strategyNew` attribute that represents their new strategy if they have one. If they don't have one, we can simply exit the function since their color will be the same, so we don't have to draw them. If they do have a new color, we get the new color from the colors store and we simply just increment or decrement the old value mulitplied by the `transitionSpeed` argument. Then we return the new value as a string which we will use in our draw function to draw the agent on the canvas. Whether this is the best way or not to do this, probably not, but it works and was simple enough to implement. One could probably store the RGB values as three seperate attributes instead of an array and then can avoid using indexes for some cleaner code, but performance wise it doesn't matter. Regardless looking at the grid is alot easier on the eyes, especially when it becomes very chaotic. 
+
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 1rem">
+    <figure>
+        <img style="height: 22rem; width: 22rem; margin-right: 1rem; filter: brightness(1.5)" src="/img/game-theory/grid-with-transition.gif" />
+        <figcaption style="text-align:center">Adding a transition effect when agents change strategies</figcaption>
+    </figure>
+</div>
+
+
 
 &nbsp;  
 The next thing I wanted to do to make the grid more interesting was add some kind of interaction beyond being able to to draw agents to the grid. This feature is purely aesthetic and at the time educational for me but neverthless provides a pretty cool user experience. When a user hovers over the grid with their mouse the agents around the mouse cursor will grow and when the user moves away from those agents they will shrink back to normal size, thus creating a cool trail effect. Basically to acheive this we just add an arbitrarily sized square boundary around our current mouse position and then agents check via their update function whether they are inside that boundary. If they are, they increase in size, and if not they, they shrink back to normal. In our update function we check this by checking the distance between the mouses `x, y` coords and the agents `x, y` coords and see if it falls within the range of our boundary:
@@ -109,7 +130,14 @@ So now agents colors will change smoothly and we've got some cool hover effects 
             }
 ```
 
-Very simple solution but it makes our grid appear much more dynamic and gives the illusion that the agents are actually moving about and interacting with each other!
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 1rem">
+    <figure>
+        <img style="height: 22rem; width: 22rem; margin-right: 1rem; filter: brightness(1.5)" src="/img/game-theory/grid-final.gif" />
+        <figcaption style="text-align:center">Like little microbes under a microscope!</figcaption>
+    </figure>
+</div>
+
+Very simple solution but it makes our grid appear much more dynamic and gives the illusion that the agents are actually moving about and interacting with each other! Also if we make the cell sizes smaller if gives the illusion that our grid is larger,  even though it is the same number of cells. 
 
 &nbsp;  
 
@@ -196,13 +224,21 @@ document.querySelector('#update-rules-menu').onchange = function() {
 }
 ```
 
-![image alt text](/img/update-normal.gif)
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 1rem">
+    <figure>
+        <img style="height: 22rem; width: 22rem; margin-right: 1rem; filter: brightness(1.5)" src="/img/game-theory/update-normal.gif" />
+        <img style="height: 22rem; width: 22rem; filter: brightness(1.5)" src="/img/game-theory/update-random.gif" />
+        <figcaption style="text-align:center">Deterministic update vs probalistic update in Rock-Paper-Scissors</figcaption>
+    </figure>
+</div>
 
-![image alt text](/img/update-random.gif)
 
-The effects of which update rule is used can really be seen the most in rock-paper-scissors! The deterministic version produces very square and identical patterns while the probalistic update rule results in beautiful swirly patterns!
+&nbsp;  
+&nbsp;  
 
-So how do we use the update rule? At the end of a round of play, we need to loop through the gameboard and run the update rule on each agent that is playing the game (is not an empty cell). Notice in the previous code when we update an agents strategy in the update rules, we update the agents newStrategy attribute and not its strategy attribute because of the double buffering as mentioned earlier! Then we swap these two attributes and this keeps the gameboard in sync and does not cause any weird issues whilst we are updating the agents. 
+The effects of which update rule is used can really be seen the most in rock-paper-scissors! The deterministic version produces very square, uniform patterns while the probalistic update rule results in beautiful, swirly patterns!
+
+So how do we use the update rule? At the end of a round of play, we need to loop through the gameboard and run the update rule on each agent that is playing the game (is not an empty cell). Notice in the previous code when we update an agents strategy in the update rules, we update the agents newStrategy attribute and not its strategy attribute because of the double buffering as mentioned earlier! Then we swap these two attributes and this keeps the gameboard in sync and does not cause any weird issues whilst we are updating the agents. For some reason and I can't remember why, I did it this way instead of building a copy of the gameboard and just swapping them. This would save having to loop through the array again and swap each strategy one by one but it is what is. Perhaps in the future I'll fix this. 
 
 ```javascript
 this.updateStrategies = function(rect, updateRule) {
@@ -229,3 +265,49 @@ function animate() {
 }
 ```
 
+I'm not going to go through everything in the paramaters and game menu because some are pretty straightfoward like self-ineraction and the payoff slider. Apart from the update rules the other main component of the visualizers parameters are the population sliders that change the population distrubution of the game. Easier to do in Python with its built-in methods from the `random` library, in Javascript this required a bit more coding although I'm sure there are some libraries that could do this for you. 
+
+So how do we update the population distribution? Say we want 33% agents playing rock, 33% agents playing scissors, 34% playing paper and 0% empty cells. We can create an array of probabilites `[0.33, 0.33, 0.34, .0]`and then using a distrubution, select a random strategy from the strategies array which contains all the strategies for a game. In the casenof RPS for example, it would look like `['rock', 'paper', 'scissors', 'empty',]`. So our population update function just takes in these two arrays as arguments. 
+
+```javascript
+function updatePopulationDistribution(probabilities, strategies) {
+    const popDistribution = createDistribution(strategies, 
+        probabilities, 
+        10);
+    rectsArray.forEach(rect => {
+        const randomStrat = game.stratArray[randomIndex(popDistribution)];
+        rect.strategy = randomStrat
+        rect.color = colorDict[rect.strategy];
+        rect.score = 0;
+    });
+}
+```
+
+To create our distribution, we can use this function that takes in `array`, the array of strategies, `weights`, the percentage of each strategy, and `size`, the length of the distrubtion array that gets returned. The function then returns an array of indexes matched to the weights we provided. We can use then use these indexes to select a strategy from our array of strategies. 
+
+
+```javascript
+createDistribution = (array, weights, size) => {
+    const distribution = [];
+    const sum = weights.reduce((a, b) => a + b);
+    const quant = size / sum;
+    for (let i = 0; i < array.length; ++i) {
+        const limit = quant * weights[i];
+        for (let j = 0; j < limit; ++j) {
+            distribution.push(i);
+        }
+    }
+    return distribution;
+};
+
+// For example, say we pass the following into the function:
+
+    // array = ['rock', 'paper', 'scissors', 'empty']
+    // weights = [0.33, 0.33, 0.34, .0]
+    // size = 10
+
+    // Output ---> [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2]
+
+    // The output returns indexes that matches the weights we provided, in this case a third of each!
+
+```
