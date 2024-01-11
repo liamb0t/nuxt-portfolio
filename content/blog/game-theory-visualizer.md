@@ -56,26 +56,28 @@ Implementing Conways Game of Life in JS was simple enough, but I wanted to do mo
 &nbsp;  
 
 
-First off, I wanted to add a transition effect when an agent changes their strategy so their colours would change smoothly and blend into their new strategies color. Since we can represent colors using RGB values that are just numbers from 0-255 for each red, green and blue value, I thought the simplest way was just to get the RGB values of the new strategy and increment (or decrement) the values of the old color until they equal the new colors RGB values. The faster or the bigger the value of the increment leads to a sharper or quicker transition, while a lower value, with 1 being the lowest, leads to a very slow and smooth transition. 
+First off, I wanted to add a transition effect when an agent changes their strategy so their colours would change smoothly and blend into their new strategies color. Since we can represent colors using RGB values that are just numbers from 0-255 for each red, green and blue value, I thought the simplest way was just to get the RGB values of the new strategy and increment (or decrement) the values of the old color until they equal the new colors RGB values. In others, use linear interpolation. The faster or the bigger the value of the increment leads to a sharper or quicker transition, while a lower value, with 1 being the lowest, leads to a very slow and smooth transition.
 
 &nbsp;  
 Here is the function I wrote in Javascript to do this:
 
 ```javascript
 this.calcRGBcolor = transitionSpeed => {
-        if (!this.strategyNew) {
-            return;
-        }
+    if (!this.strategyNew) {
+        return;
+    }
+    
+    const [r1, g1, b1] = this.colorRGB;
+    const [r2, g2, b2] = colorDictRGB[this.strategyNew];
+    
+    this.colorRGB = [
+        Math.round((r2 - r1) * transitionSpeed + r1), 
+        Math.round((g2 - g1) * transitionSpeed + g1),
+        Math.round((b2 - b1) * transitionSpeed + b1)
+    ]
 
-        const [r, g, b] = this.colorRGB;
-        const newColor = colorDictRGB[this.strategyNew];
-
-        this.colorRGB = [r + (newColor[0] - r > 0 ? 1 : -1) * transitionSpeed,
-                            g + (newColor[1] - g > 0 ? 1 : -1) * transitionSpeed,
-                            b + (newColor[2] - b > 0 ? 1 : -1) * transitionSpeed];
-
-        return `rgb(${this.colorRGB[0]}, ${this.colorRGB[1]}, ${this.colorRGB[2]})`;
-    };
+    return `rgb(${this.colorRGB[0]}, ${ this.colorRGB[1]}, ${ this.colorRGB[2]})`;
+};
 ```
 
 &nbsp;  
@@ -311,3 +313,4 @@ createDistribution = (array, weights, size) => {
     // The output returns indexes that matches the weights we provided, in this case a third of each!
 
 ```
+

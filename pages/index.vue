@@ -15,15 +15,15 @@ const projects = [
     },
     { 
       "id": 2,
-      "title": "Reddit Soccer Highlights",
-      "description": "A Vue.js frontend for watching soccer highlights from Reddit",
+      "title": "Vuelites",
+      "description": "A Vue.js frontend for watching soccer highlights from Reddit using Flask",
       "projectUrl": "https://soccer-highlights-frontend.onrender.com",
       "img": soccerIcon
     },
     {
       "id": 3,
       "title": "Evolutionary game theory simulator",
-      "description": "A sandbox and visualizer in your browser to simulate various games from game theory and economics",
+      "description": "A sandbox and visualizer in your browser to simulate games from game theory and economics",
       "projectUrl": "https://liamb0t.github.io",
       "img": gameTheoryIcon
     },
