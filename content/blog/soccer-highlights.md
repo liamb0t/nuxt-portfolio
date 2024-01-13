@@ -9,6 +9,8 @@ I love football (soccer for the non-British folk) and [r/soccer](https://reddit.
 
 You may be wondering why use Flask and Python when I could just grab the JSON using Reddit's API, as after all, if you go to a link like [https://www.reddit.com/r/soccer/hot.json](https://reddit.com/r/soccer), you get all the data returned back in JSON, right? Well, I intially thought about doing this but I needed to process a lot of the data as the JSON data wasn't quite giving me everything I wanted. For example, a while ago Reddit stopped downvotes from being visible on posts and consequently the API stopped providing this too. But we can calculate the number of downvotes using some other data properties we get back from the API. Again, we could just do this in Vue using Javascript but I like the idea of seperating our API and the processing we perform on the raw data from our frontend - Vue is simply going to consume our API and all the dirty work will be done in Python and Flask. Then we'll send nice clean data to our frontend and all we have to worry about in Vue is displaying it. 
 
+### Fetching Posts from Reddit in Python
+
 So how do we get posts from Reddit in Python? Well unlike how you would fetch data normally using an API by sending a request to a URL, in PRAW you create object instances and retreive data by using the methods and attributes on those objects. For example, let's get some posts from the r/soccer subreddit. First we need to create a Reddit instance. 
 
 ```py

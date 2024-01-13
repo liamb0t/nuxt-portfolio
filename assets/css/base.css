@@ -70,4 +70,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: justify;
+}
+p {
+  margin: 1rem 0rem;
 }
