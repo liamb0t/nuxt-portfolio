@@ -9,9 +9,85 @@ I love football (soccer for the non-British folk) and [r/soccer](https://reddit.
 
 You may be wondering why use Flask and Python when I could just grab the JSON using Reddit's API, as after all, if you go to a link like [https://www.reddit.com/r/soccer/hot.json](https://reddit.com/r/soccer), you get all the data returned back in JSON, right? Well, I intially thought about doing this but I needed to process a lot of the data as the JSON data wasn't quite giving me everything I wanted. For example, a while ago Reddit stopped downvotes from being visible on posts and consequently the API stopped providing this too. But we can calculate the number of downvotes using some other data properties we get back from the API. Again, we could just do this in Vue using Javascript but I like the idea of seperating our API and the processing we perform on the raw data from our frontend - Vue is simply going to consume our API and all the dirty work will be done in Python and Flask. Then we'll send nice clean data to our frontend and all we have to worry about in Vue is displaying it. 
 
-So how do we get data from Reddit in Python? If you don't know already, Python has a very nice API wrapper called [PRAW](https://praw.readthedocs.io/en/stable/). It is available for anyone to use with a Reddit account, but you will need to setup a client ID and a client secret which I'm not going to go through in this post. Getting posts is dead simple. 
+So how do we get posts from Reddit in Python? Well unlike how you would fetch data normally using an API by sending a request to a URL, in PRAW you create object instances and retreive data by using the methods and attributes on those objects. For example, let's get some posts from the r/soccer subreddit. First we need to create a Reddit instance. Once we have our Reddit instance, we can access the subreddit method of the Reddit instance and pass in as an argument the subreddit we want to search as a string. In this case, the subreddit we want to look through is 'soccer'. We can then loop through submissions from the subreddit, specificying some filters like whether we want the newests submissions, top, hottest. We can also specify how many submissions we want returned using `limit`. 
 
 ```python
+for submission in reddit.subreddit("soccer").hot(limit=10):
+    print(submission.title)
+
+# Output: 10 submissions
 
 ```
 
+But notice this will return all types of submissions, including video, text, images, links etc. Since we only want video submissions, we need a way to only get back video submissions. Fortunately, submissions have lots of attributes, one of which is the `is_video` property, which is a boolean specifying `True` if the submission is a video and `False` if not. Of course on r/soccer and many other sports highlights subreddits, there are "video submissions" containing external links to sites outside of reddit, which `is_video` will return `False` since these are just link posts. Vuelites ignores these sites and only retreives submissions strictly from Reddit. In a lot of cases, external links get taken down for copyright reasons and while we could easily write some code to accomodate these links to check to see if they are status 200, for legal reasons and just for sake of simplicity, Vuelites does not handle these external sites and only retreives video uploaded and hosted on Reddit. 
+
+So great, we can check if a submission is a video by using `is_video` and ignore everything other type of submission. We can then get the url of to the video using `fallback_url` property on the submission and if you open the link in your browser, you can watch the video. But you might notice something strange - there is no sound. And this where things get interesting. Reddit streams it's video and audio files seperately! I have not really dived into the details of this and why (its called DASH afaik) but what this means for Vuelites is that we need to get the URL for the video AND the URL for the audio and combine them in our HTML player, which certainly complicates things a little. 
+
+But wait! It gets even more complicated because Reddit often changes how audio files are named conventailly over time. For example. if you open Vuelites and inspect a video highlight, you will see a video element and an audio element. A video elements URL will look like https://v.redd.it/akhb9vmuhvac1/DASH_360.mp4?source=fallback, and the audio element might look something like https://v.redd.it/akhb9vmuhvac1/DASH_AUDIO_64.mp4". Its the same base URL but we just added the DASH_360 to DASH_AUDIO. But this won't work for every video. This naming convention for audio files only works for recently uploaded files. Older video files will need to use DASH_audio.mp4 appendix. 
+
+The exact dates of when the new convention was introduced I can't find on the internet, but it seems like very early 2023 the new convention started being used. So in the code then to solve this issue, we can just check if the video file was uploaded before or after 2023. If it was before 2023, we can use the DASH_audio.mp4 suffix, otherwise we use DASH_AUDIO_64.mp4 suffix. 
+
+```python
+def get_audio_url(video_url, video_date):
+    if video_date < 1672531200:
+        return video_url.split('DASH_')[0] + 'DASH_audio.mp4'
+    else:
+        return video_url.split('DASH_')[0] + 'DASH_AUDIO_64.mp4'
+```
+
+Great, so we know how to get a video URL and audio URL from a subreddit. But Vuelites is cool because you can browse highlights not just from r/soccer but whole leagues! For example, if you want to browse highlights just from Premier League teams, you can browse all the highlights from all the Premier League team's subreddits all at once! And this is the power of PRAW. PRAW makes it possible to search and get submissions from multiple subreddits using a single function call! No need to run multiple calls on each subreddit individually (I'm not sure how it operates under the hood but I'm just talking from a higher-level). For example, say we want to get the top 10 submissions from r/LiverpoolFC and r/Reddevils (Manchester United's subreddit). We can write a function like this:
+
+```python
+for submission in reddit.subreddit("liverpoolFC+reddevils").hot(limit=10):
+    print(submission.title)
+```
+
+Here we combine mutliple subreddits into one string using the `+` operator! And there is no limit to how many subreddits we want to combine. To get all the subreddits from a league, I used ChatGPT to make a python list of all the subreddit names for a certain league. Since ChatGPT-3's knowledge is only up to 2022 at the time of making Vuelites, it returned some teams that had since been relegated from the those leagues, so it needed a bit of guidance. To do this, I just copied team names from some current league tables I found on Google and told it to get the subreddits for those teams and put them in a python list. And I was actually surprised at how well it did here, since it got all the subreddits correct first time. 
+
+```python
+premier_league = [
+    "coys",                   # Tottenham Hotspur
+    "Gunners",                # Arsenal
+    "MCFC",                   # Manchester City
+    "LiverpoolFC",            # Liverpool
+    "avfc",                   # Aston Villa
+    "NUFC",                   # Newcastle United
+    "BrightonHoveAlbion",     # Brighton and Hove Albion
+    "reddevils",              # Manchester United
+    "Hammers",                # West Ham United
+    "BrentfordFC",            # Brentford
+    "fulhamfc",               # Fulham
+    "chelseafc",              # Chelsea
+    "WWFC",                   # Wolverhampton Wanderers
+    "crystalpalace",          # Crystal Palace
+    "Everton",                # Everton
+    "nffc",                   # Nottingham Forest
+    "afcbournemouth",         # Bournemouth
+    "LutonTown",              # Luton Town
+    "Burnley",                # Burnley
+    "SheffieldUnited",        # Sheffield United
+]
+```
+
+Now, if we want to get submissions from all the Premier League teams, we can just combine each subreddit name into a single string from the list. 
+
+```python
+subreddits_string = '+'.join([team for team in premier_league])
+for submission in reddit.subreddit(subreddits_string).hot(limit=10):
+    print(submission.title)
+```
+
+So our route then might look something like this. 
+
+```python
+@app.route("/highlights-all/<string:league>/<string:filter>/<string:sort>", methods=["GET"])
+def highlights_all(league, filter='week', sort='top'):
+    after = request.args.get('after')
+    subreddits_string = '+'.join([team for team in leagues[league]])
+    highlights = get_highlights(subreddits_string, sort, after, filter, content_type='league')
+
+    return jsonify({
+        'highlights': highlights
+    })
+
+```
