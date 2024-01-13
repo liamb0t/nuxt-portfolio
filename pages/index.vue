@@ -67,6 +67,12 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+a,
+.green {
+  text-decoration: none;
+  color: var(--color-text);
+  transition: 0.4s;
+}
 .projects {
   display: flex;
   flex-direction: column;

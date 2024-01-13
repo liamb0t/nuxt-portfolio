@@ -7,11 +7,23 @@
   font-weight: normal;
 }
 
-a,
+nav a, .posts .container a,
 .green {
   text-decoration: none;
   color: var(--color-text);
   transition: 0.4s;
+}
+
+a {
+  text-decoration: none;
+}
+
+p a {
+  color: rgb(200, 9, 9);
+}
+
+p a:hover {
+  text-decoration: underline;
 }
 
 pre {

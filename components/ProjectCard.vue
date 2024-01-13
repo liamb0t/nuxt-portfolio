@@ -40,4 +40,8 @@ img {
 .content {
     color: var(--color-text)
 }
+p {
+    text-align: start;
+    margin: 0;
+}
 </style>
