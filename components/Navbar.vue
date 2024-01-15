@@ -1,11 +1,6 @@
 
 <template>
   <header>
-    <NuxtLink to="/">
-      <div class="img-container">
-        <img alt="">
-      </div>
-    </NuxtLink>
     <div class="flex">
       <h1 class="name">LIAM MCLAUGHLIN</h1>
       <nav>
@@ -22,7 +17,6 @@
 header {
   line-height: 1.5;
   max-height: 100vh;
-  margin-bottom: 2rem;
 }
 .img-container {
   position: relative;
@@ -44,6 +38,8 @@ img {
   top: -3rem;
 }
 nav {
+  display: flex;
+  align-items: center;
   width: 100%;
   text-align: center;
   margin-top: 2rem;
@@ -51,7 +47,8 @@ nav {
 .flex {
   display: flex;
   flex-direction: column;
-  padding-left: 4rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .name {
@@ -69,8 +66,8 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
-  padding-right: 2rem;
+  display: flex;
+  padding: 0 1rem;
   font-weight: 500;
   font-size: 1.5rem;
 }
@@ -83,7 +80,6 @@ nav a:first-of-type {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
   }
 
   .logo {

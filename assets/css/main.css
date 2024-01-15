@@ -31,3 +31,20 @@ pre {
   font-size: 12px;
   padding: 1.5rem;
 }
+
+strong {
+  font-weight: bold;
+}
+
+h2 a {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+h2 a:visited {
+  color: inherit;
+}
+
+h2 a:hover {
+  cursor: default;
+}

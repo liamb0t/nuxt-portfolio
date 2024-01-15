@@ -1,7 +1,7 @@
 ---
 title: Making an Evolutionary Game Theory Visualizer in Vanilla JS
 dates:
-    published: "2023-12-24"
+    published: "2023-12-30"
 ---
 
 A while ago when I started learning Javascript for the first time I wanted to create a visualizer 

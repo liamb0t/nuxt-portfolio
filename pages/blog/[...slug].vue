@@ -23,6 +23,9 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 </template>
 
 <style scoped>
+h1 {
+  font-weight: 600;
+}
 .post-container {
   max-width: 50rem;
 }
