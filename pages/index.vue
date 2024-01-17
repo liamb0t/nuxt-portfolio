@@ -17,7 +17,7 @@ const projects = [
       "id": 2,
       "title": "Vuelites",
       "description": "A Vue.js frontend for watching soccer highlights from Reddit using Flask",
-      "projectUrl": "https://soccer-highlights-frontend.onrender.com",
+      "projectUrl": "https://vuelites.onrender.com",
       "img": soccerIcon
     },
     {
@@ -30,14 +30,14 @@ const projects = [
     {
       "id": 4,
       "title": "Advent of Code 2023",
-      "description": "Solutions to AoC 2023 in Typescript",
+      "description": "Solutions to AoC 2023",
       "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2023",
       "img": aocIcon
     },
     {
       "id": 5,
       "title": "Advent of Code 2022",
-      "description": "Solutions to AoC 2022 in Python",
+      "description": "Solutions to AoC 2022",
       "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2022",
       "img": aocIcon
     }

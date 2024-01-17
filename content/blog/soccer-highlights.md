@@ -5,11 +5,11 @@ dates:
 tags: [Python, Flask, Vue]
 ---
 
-I love football (soccer for the non-British folk) and [r/soccer](https://reddit.com/r/soccer) is pretty much my go to place for finding recent highlights. And when I mean recent, the folk over there have highlights up seconds after they've happended live. But wouldn't it be nice if there was a place you go to that displayed all the highlights and nothing but highlights? With no deadlinks or copy-striked content? All displayed nicely so you can just scroll and watch them? Say no more, I got you covered. Introducing [Vuelites](https://soccer-highlights-frontend.onrender.com)! (couldn't think of a better name), a little web app I created that gets soccer highlights from Reddit using Flask on the backend and displays them nicely with a little Vue magic on the frontend. In this post I'll talk about how I created the app and some things I encountered along the way. 
+I love football (soccer for the non-British folk) and [r/soccer](https://reddit.com/r/soccer) is pretty much my go to place for finding recent highlights. And when I mean recent, the folk over there have highlights up seconds after they've happened live. But wouldn't it be nice if there was a place you go to that displayed all the highlights and nothing but highlights? With no deadlinks or copy-striked content? All displayed nicely so you can just scroll and watch them? Say no more. Introducing [Vuelites](https://soccer-highlights-frontend.onrender.com)! Vuelites (couldn't think of a better name) is a little web app I created that gets soccer highlights from Reddit using Flask on the backend and displays them nicely with a little Vue magic on the frontend. In this post I'll talk about how I created the app and some things I encountered along the way making the app. 
 
 ## Fetching Posts from Reddit in Python
 
-You may be wondering why use Flask and Python when I could just grab the JSON using Reddit's API, as after all, if you go to a link like https://www.reddit.com/r/soccer/hot.json, you get all the data returned back in JSON, right? Well, I intially thought about doing this but I needed to process a lot of the data as the JSON data wasn't quite giving me everything I wanted. For example, a while ago Reddit stopped downvotes from being visible on posts and consequently the API stopped providing this too. But we can calculate the number of downvotes using some other data properties we get back from the API. Again, we could just do this in Vue using Javascript but I like the idea of seperating our API and the processing we perform on the raw data - Vue is simply going to consume our API and all the dirty work will be done in Python and Flask. Then we'll send nice clean data to our frontend and all we have to worry about in Vue is displaying it. 
+You may be wondering why use Flask and Python when I could just grab the JSON using Reddit's API, as after all, if you go to a link like https://www.reddit.com/r/soccer/hot.json, you get all the data returned back in JSON, right? Well, I intially thought about doing it this way but I needed to process a lot of the data as the JSON data wasn't quite giving me everything I wanted. For example, a while ago Reddit stopped downvotes from being visible on posts and consequently the API stopped providing this too. But we can calculate the number of downvotes using some other data properties we get back from the API. Again, we could just do this in Vue using Javascript but I like the idea of seperating our API and the processing we perform on the raw data - Vue is simply going to consume our API and all the dirty work will be done in Python and Flask. Then we'll send nice clean data to our frontend and all we have to worry about in Vue is displaying it. 
 
 So how do we get posts from Reddit in Python? Well unlike how you would fetch data normally using an API by sending a request to a URL, in PRAW you create object instances and retreive data by using the methods and attributes on those objects. PRAW handles everything under the hood. For example, let's get some posts from the [r/soccer](https://www.reddit.com/r/soccer) subreddit. First we need to create a [Reddit instance](https://praw.readthedocs.io/en/stable/code_overview/reddit_instance.html). 
 
@@ -31,7 +31,7 @@ Once we have our Reddit instance, we can access the subreddit method of the Redd
 for submission in reddit.subreddit("soccer").hot(limit=10):
     print(submission.title)
 
-# Output: 10 submissions
+# Output: 10 submission titles
 
 ```
 
