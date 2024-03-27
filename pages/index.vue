@@ -45,8 +45,8 @@ const projects = [
     {
       "id": 6,
       "title": "Multi-media library",
-      "description": "A media library with support for 3D files",
-      "projectUrl": "https://https://media-platform-demo.onrender.com",
+      "description": "A media library design concept with support for 3D files",
+      "projectUrl": "https://media-platform-demo.onrender.com",
       "img": mediaIcon
     }
   ]
@@ -66,7 +66,7 @@ onBeforeUnmount(() => {
 <template>
     <transition name="fade">
     <div v-show="isMounted" class="projects">
-      <h1>Some projects and stuff I've made</h1>
+
       <div class="project-grid">
         <ProjectCard v-for="project in projects" :key="project.id" :project="project"/>
       </div>
@@ -75,6 +75,9 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+h1 {
+  margin-bottom: 1rem;
+}
 .projects {
   display: flex;
   flex-direction: column;
@@ -83,8 +86,8 @@ onBeforeUnmount(() => {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px; /* Adjust the gap according to your design */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px; /* Adjust the gap according to your design */
 }
 /* transition code */
 .fade-enter-active, .fade-leave-active {

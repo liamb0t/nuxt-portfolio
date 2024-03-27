@@ -13,6 +13,8 @@ defineProps({
     <a :href="project.projectUrl">
         <div class="container">
             <img :src="project.img" alt="">
+        </div>
+        <div class="info-container">
             <p class="title">{{ project.title }}</p>
             <p class="content">{{ project.description }}</p>
         </div>
@@ -20,10 +22,13 @@ defineProps({
 </template>
 
 <style scoped>
+a {
+    margin-bottom: 1rem;
+}
 .container {
-  height: 100%; /* Set a fixed height for each card */
+  height: 14rem; /* Set a fixed height for each card */
+  width: 100%;
   transition: transform 0.3s ease;
-  
 }
 .container:hover {
     transform: scale(1.05);
