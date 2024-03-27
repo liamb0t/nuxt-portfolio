@@ -4,6 +4,7 @@ import bibimIcon from '~/assets/img/bibimhak.png'
 import aocIcon from '~/assets/img/aoc.jpeg'
 import gameTheoryIcon from '~/assets/img/game-theory.png'
 import soccerIcon from '~/assets/img/soccer.png'
+import mediaIcon from '~/assets/img/media-library.png'
 
 const projects = [
     {
@@ -40,6 +41,13 @@ const projects = [
       "description": "Solutions to AoC 2022",
       "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2022",
       "img": aocIcon
+    },
+    {
+      "id": 6,
+      "title": "Multi-media library",
+      "description": "A media library with support for 3D files",
+      "projectUrl": "https://https://media-platform-demo.onrender.com",
+      "img": mediaIcon
     }
   ]
 
