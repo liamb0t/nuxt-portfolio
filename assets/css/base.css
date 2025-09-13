@@ -1,24 +1,30 @@
-/* color palette from <https://github.com/vuejs/theme> */
+/* Classic shadcn-inspired color palette */
 :root {
   --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --vt-c-white-soft: #fafafa;
+  --vt-c-white-mute: #f4f4f5;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --vt-c-black: #09090b;
+  --vt-c-black-soft: #18181b;
+  --vt-c-black-mute: #27272a;
 
-  --vt-c-indigo: #2c3e50;
+  --vt-c-gray: #71717a;
+  --vt-c-gray-light: #a1a1aa;
+  --vt-c-gray-dark: #52525b;
 
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+  --vt-c-neutral: #737373;
+  --vt-c-neutral-light: #a3a3a3;
+  --vt-c-neutral-dark: #404040;
 
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+  --vt-c-divider-light-1: rgba(0, 0, 0, 0.12);
+  --vt-c-divider-light-2: rgba(0, 0, 0, 0.06);
+  --vt-c-divider-dark-1: rgba(255, 255, 255, 0.2);
+  --vt-c-divider-dark-2: rgba(255, 255, 255, 0.1);
+
+  --vt-c-text-light-1: #18181b;
+  --vt-c-text-light-2: #71717a;
+  --vt-c-text-dark-1: #fafafa;
+  --vt-c-text-dark-2: #a1a1aa;
 }
 
 /* semantic color variables for this project */
@@ -32,6 +38,12 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
+  
+  --color-accent: var(--vt-c-gray-dark);
+  --color-accent-light: var(--vt-c-gray);
+  --color-accent-dark: var(--vt-c-neutral-dark);
+  --color-blue: var(--vt-c-neutral);
+  --color-blue-light: var(--vt-c-neutral-light);
 
   --section-gap: 160px;
 }
@@ -47,7 +59,51 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+    
+    --color-accent: #e5e5e5;
+    --color-accent-light: #f5f5f5;
+    --color-accent-dark: #d4d4d4;
+    --color-blue: #f0f0f0;
+    --color-blue-light: #f8f8f8;
   }
+}
+
+/* Dark theme class override - higher specificity to override media query */
+html.dark {
+  --color-background: var(--vt-c-black) !important;
+  --color-background-soft: var(--vt-c-black-soft) !important;
+  --color-background-mute: var(--vt-c-black-mute) !important;
+
+  --color-border: var(--vt-c-divider-dark-2) !important;
+  --color-border-hover: var(--vt-c-divider-dark-1) !important;
+
+  --color-heading: var(--vt-c-text-dark-1) !important;
+  --color-text: var(--vt-c-text-dark-2) !important;
+  
+  --color-accent: #e5e5e5 !important;
+  --color-accent-light: #f5f5f5 !important;
+  --color-accent-dark: #d4d4d4 !important;
+  --color-blue: #f0f0f0 !important;
+  --color-blue-light: #f8f8f8 !important;
+}
+
+/* Light theme class override */
+html:not(.dark) {
+  --color-background: var(--vt-c-white) !important;
+  --color-background-soft: var(--vt-c-white-soft) !important;
+  --color-background-mute: var(--vt-c-white-mute) !important;
+
+  --color-border: var(--vt-c-divider-light-2) !important;
+  --color-border-hover: var(--vt-c-divider-light-1) !important;
+
+  --color-heading: var(--vt-c-text-light-1) !important;
+  --color-text: var(--vt-c-text-light-1) !important;
+  
+  --color-accent: var(--vt-c-gray-dark) !important;
+  --color-accent-light: var(--vt-c-gray) !important;
+  --color-accent-dark: var(--vt-c-neutral-dark) !important;
+  --color-blue: var(--vt-c-neutral) !important;
+  --color-blue-light: var(--vt-c-neutral-light) !important;
 }
 
 *,

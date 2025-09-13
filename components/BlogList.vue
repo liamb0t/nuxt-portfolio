@@ -22,7 +22,14 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
 <style scoped>
 .posts {
   max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 /* transition code */
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s ease;
@@ -40,18 +47,18 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column  ;
+  flex-direction: column;
 }
 .loader {
-  width: 10rem;
-  height: 10rem;
-  border: 2px solid #838383;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--color-border);
   border-radius: 50%;
   display: inline-block;
   position: relative;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .loader::after,
 .loader::before {
@@ -60,9 +67,9 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
   position: absolute;
   left: 0;
   top: 0;
-  background: #FF3D00;
-  width: 6px;
-  height: 6px;
+  background: var(--color-accent);
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
 }
 .loader::before {
@@ -81,8 +88,9 @@ const { data: blogPostList } = useAsyncData('blogPostList', () => {
   }
 } 
 .loader-text {
-  font-size: large;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
 }
 </style>
 

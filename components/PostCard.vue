@@ -23,38 +23,54 @@ const props = defineProps({
 
 <style scoped>
 .container {
-  height: 100%; /* Set a fixed height for each card */
-  transition: transform 0.3s ease;
-  border-bottom: 2px solid gainsboro;
+  height: 100%;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 2rem;
   margin-bottom: 2rem;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
 }
-.title:hover {
-    color: maroon;
+
+.container:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
 }
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+
 .title {
-    font-weight: 600;
-    color: var(--color-text);
-    margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-heading);
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
 }
+
+.title:hover {
+  color: var(--color-accent);
+}
+
 .content {
-    color: var(--color-text);
-    margin-bottom: 2rem
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
+
 .open-post-btn {
-    font-weight: 500;
-    font-size: smaller;
-    color: var(--color-text);
-    padding: 0.5rem 1.5rem;
-    border: 1px solid maroon;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: inline-block;
 }
+
 .open-post-btn:hover {
-    color: white;
-    background-color: maroon;
+  color: var(--color-background);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 </style>

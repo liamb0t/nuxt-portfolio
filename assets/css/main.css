@@ -1,9 +1,6 @@
 @import './base.css';
 
 #__nuxt {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   font-weight: normal;
 }
 
@@ -19,7 +16,7 @@ a {
 }
 
 p a {
-  color: rgb(200, 9, 9);
+  color: var(--color-accent);
 }
 
 p a:hover {

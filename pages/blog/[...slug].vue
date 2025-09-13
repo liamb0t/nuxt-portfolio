@@ -23,30 +23,51 @@ const { data: blogPost } = await useAsyncData(`content-${path}`, () => {
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 600;
-}
 .post-container {
   max-width: 50rem;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-heading);
+  margin-bottom: 1rem;
+}
+
+span {
+  color: var(--color-text);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  display: block;
+  opacity: 0.8;
+}
+
 .loader-container {
   height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column  ;
+  flex-direction: column;
 }
+
 .loader {
-  width: 10rem;
-  height: 10rem;
-  border: 2px solid #838383;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--color-border);
   border-radius: 50%;
   display: inline-block;
   position: relative;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
+
 .loader::after,
 .loader::before {
   content: '';  
@@ -54,11 +75,12 @@ h1 {
   position: absolute;
   left: 0;
   top: 0;
-  background: #FF3D00;
-  width: 6px;
-  height: 6px;
+  background: var(--color-accent);
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
 }
+
 .loader::before {
   left: auto;
   top: auto;
@@ -76,9 +98,11 @@ h1 {
 } 
 
 .loader-text {
-  font-size: large;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
 }
+
 /* transition code */
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s ease;
