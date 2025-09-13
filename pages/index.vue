@@ -40,7 +40,7 @@ const projects = [
     "id": 6,
     "title": "Multi-media library concept",
     "description": "A media library design concept with support for 3D files",
-    "projectUrl": "https://media-platform-demo.onrender.com",
+    "projectUrl": "https://media-platform-concept.vercel.app/",
     "img": mediaIcon
   },
   {
