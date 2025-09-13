@@ -74,9 +74,6 @@ onBeforeUnmount(() => {
 <template>
   <transition name="fade">
     <div v-show="isMounted" class="projects">
-      <div class="projects-header">
-        <p class="section-subtitle">A collection of hobby projects</p>
-      </div>
       <div class="project-grid">
         <ProjectCard v-for="(project, index) in projects" :key="index" :project="project" />
       </div>
