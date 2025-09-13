@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: 'Liam Mclaughlin',
+  title: 'liamb0t',
 })
 
 const currentYear = new Date().getFullYear()
