@@ -8,6 +8,8 @@ import mediaIcon from '~/assets/img/media-library.png'
 import bluffballIcon from '~/assets/img/bluffball.png'
 import CerameterIcon from '~/assets/img/cerameter.png'
 import FantaIcon from '~/assets/img/fanta.webp'
+import Porz2Icon from '~/assets/img/porz-ii.webp'
+import AkkiIcon from '~/assets/img/akki.png'
 
 const projects = [
   {
@@ -42,6 +44,19 @@ const projects = [
     "description": "Generative AI/AR experience for launch of Fanta Zero Orange (Frontend)",
     "projectUrl": "https://www.youtube.com/watch?v=tG_OvpvEKhk",
     "img": FantaIcon,
+  },
+  {
+    "title": "Akki EntdeckAR",
+    "description": "Official app of the city of Hildesheim: Interactive AR scavenger hunt on the active playground (Frontend)",
+    "projectUrl": "https://play.google.com/store/apps/details?id=com.zaubar.akki&hl=en",
+    "img": AkkiIcon,
+  },
+  {
+    "title": "Porzellanikon: Fenster in die vergangenheit",
+    "description": "Interactive AR experience and chatbot for porcelain museum in Germany (Frontend)",
+    "projectUrl": "https://apps.apple.com/lu/app/porzellanikon/id6747825877?platform=ipad",
+    "img": Porz2Icon,
+    "tags": ["9-splicing"]
   },
   {
     "title": "Bibimhak",
@@ -90,7 +105,7 @@ onBeforeUnmount(() => {
     <div v-show="isMounted" class="projects">
       <div class="projects-header">
         <h1 class="section-title">Hi, I'm Liam</h1>
-        <p class="section-subtitle">Here's some random stuff I've built</p>
+        <p class="section-subtitle">Here's some random stuff I've built and worked on</p>
       </div>
       <div class="project-grid">
         <ProjectCard v-for="(project, index) in projects" :key="index" :project="project" />
