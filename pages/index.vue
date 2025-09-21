@@ -56,7 +56,7 @@ const projects = [
     "description": "Interactive AR experience and chatbot for porcelain museum in Germany (Frontend)",
     "projectUrl": "https://apps.apple.com/lu/app/porzellanikon/id6747825877?platform=ipad",
     "img": Porz2Icon,
-    "tags": ["9-splicing"]
+    "tags": ["9-slicing"]
   },
   {
     "title": "Bibimhak",
