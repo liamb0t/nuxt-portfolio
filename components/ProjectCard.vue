@@ -22,6 +22,9 @@ defineProps({
         <div class="info-container">
             <h3 class="title">{{ project.title }}</h3>
             <p class="description">{{ project.description }}</p>
+            <div class="tags" v-if="project.tags">
+                <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
+            </div>
         </div>
     </a>
 </template>
@@ -93,6 +96,8 @@ defineProps({
 
 .info-container {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -107,7 +112,29 @@ defineProps({
   color: var(--color-text);
   font-size: 0.95rem;
   line-height: 1.5;
-  margin: 0;
+  margin: 0 0 0.75rem 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.tag {
+  background: var(--color-background-soft);
+  color: var(--color-text);
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.project-card:hover .tag {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {

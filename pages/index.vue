@@ -6,56 +6,70 @@ import gameTheoryIcon from '~/assets/img/game-theory.png'
 import soccerIcon from '~/assets/img/soccer.png'
 import mediaIcon from '~/assets/img/media-library.png'
 import bluffballIcon from '~/assets/img/bluffball.png'
+import CerameterIcon from '~/assets/img/cerameter.png'
+import FantaIcon from '~/assets/img/fanta.webp'
 
 const projects = [
   {
-    "id": 8,
     "title": "Bluffball",
     "description": "Daily Premier League news & updates inspired by IT Crowd, powered by AI",
     "projectUrl": "https://bluffball.org",
-    "img": bluffballIcon
+    "img": bluffballIcon,
+    "tags": ["TypeScript", "Nuxt.js", "Capacitor", "Android", "AI", "TailwindCSS"]
   },
   {
-    "id": 2,
     "title": "Goalrush",
     "description": "Easier browsing of soccer highlights from Reddit",
     "projectUrl": "https://goalrush-six.vercel.app",
-    "img": soccerIcon
+    "img": soccerIcon,
+    "tags": ["Flask", "Nuxt.js", "PRAW", "Redis", "TypeScript", "TailwindCSS"]
   },
   {
-    "id": 3,
     "title": "Evolutionary game theory simulator",
     "description": "A sandbox and visualizer in your browser to simulate games from game theory and economics",
     "projectUrl": "https://liamb0t.github.io",
-    "img": gameTheoryIcon
+    "img": gameTheoryIcon,
+    "tags": ["JavaScript", "HTML", "CSS"]
   },
   {
-    "id": 1,
+    "title": "Porzellanikon: Mission Keramik",
+    "description": "AR scavenger hunt game for a museum exhibition in Germany (Frontend)",
+    "projectUrl": "https://www.tvo.de/mediathek/video/porzellanikon-familientag-auf-mission-keramik/",
+    "img": CerameterIcon,
+  },
+  {
+    "title": "Fanta Fenix",
+    "description": "Generative AI/AR experience for launch of Fanta Zero Orange (Frontend)",
+    "projectUrl": "https://www.youtube.com/watch?v=tG_OvpvEKhk",
+    "img": FantaIcon,
+  },
+  {
     "title": "Bibimhak",
     "description": "A filesharing and community platform for ESL teachers in South Korea",
     "projectUrl": "https://bibimhak.com",
-    "img": bibimIcon
+    "img": bibimIcon,
+    "tags": ["Flask", "SQLAlchemy", "JavaScript", "CSS"]
   },
   {
-    "id": 6,
     "title": "Multi-media library concept",
     "description": "A media library design concept with support for 3D files",
     "projectUrl": "https://media-platform-concept.vercel.app/",
-    "img": mediaIcon
+    "img": mediaIcon,
+    "tags": ["Nuxt.js"]
   },
   {
-    "id": 4,
     "title": "Advent of Code 2023",
     "description": "Solutions to AoC 2023",
     "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2023",
-    "img": aocIcon
+    "img": aocIcon,
+    "tags": ["Python", "Algorithms"]
   },
   {
-    "id": 5,
     "title": "Advent of Code 2022",
     "description": "Solutions to AoC 2022",
     "projectUrl": "https://github.com/liamb0t/Advent-of-Code-2022",
-    "img": aocIcon
+    "img": aocIcon,
+    "tags": ["Python", "Algorithms"]
   },
 ]
 
@@ -74,6 +88,10 @@ onBeforeUnmount(() => {
 <template>
   <transition name="fade">
     <div v-show="isMounted" class="projects">
+      <div class="projects-header">
+        <h1 class="section-title">Hi, I'm Liam</h1>
+        <p class="section-subtitle">Here's some random stuff I've built</p>
+      </div>
       <div class="project-grid">
         <ProjectCard v-for="(project, index) in projects" :key="index" :project="project" />
       </div>
