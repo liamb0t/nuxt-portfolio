@@ -50,7 +50,7 @@ const projects = [
   },
   {
     "title": "Fanta Fenix",
-    "description": "Generative AI/AR experience for launch of Fanta Zero Orange (Frontend)",
+    "description": "Generative AI/AR experience for the launch of Fanta Zero Orange (Frontend)",
     "projectUrl": "https://www.youtube.com/watch?v=tG_OvpvEKhk",
     "img": FantaIcon,
     "tags": ["Nuxt.js", "Typescript"]
