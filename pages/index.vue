@@ -17,9 +17,9 @@ const projects = [
   },
   {
     "id": 2,
-    "title": "Vuelites",
-    "description": "A Vue.js frontend for watching soccer highlights from Reddit using Flask",
-    "projectUrl": "https://vuelites.onrender.com",
+    "title": "Goalrush",
+    "description": "Easier browsing of soccer highlights from Reddit",
+    "projectUrl": "https://goalrush-six.vercel.app",
     "img": soccerIcon
   },
   {
