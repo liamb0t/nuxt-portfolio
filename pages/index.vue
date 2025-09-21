@@ -10,6 +10,7 @@ import CerameterIcon from '~/assets/img/cerameter.png'
 import FantaIcon from '~/assets/img/fanta.webp'
 import Porz2Icon from '~/assets/img/porz-ii.webp'
 import AkkiIcon from '~/assets/img/akki.png'
+import thinkstIcon from '~/assets/img/thinkst.png'
 
 const projects = [
   {
@@ -27,6 +28,13 @@ const projects = [
     "tags": ["Flask", "Nuxt.js", "PRAW", "Redis", "TypeScript", "TailwindCSS"]
   },
   {
+    "title": "Thinkst Canary gift store",
+    "description": "Rework of the gift store for Thinkst Canary's website",
+    "projectUrl": "https://gift.canary.tools  ",
+    "img": thinkstIcon,
+    "tags": ["Vue.js", "Flask", "Docker", "SQLAlchemy", "TailwindCSS"]
+  },
+  {
     "title": "Evolutionary game theory simulator",
     "description": "A sandbox and visualizer in your browser to simulate games from game theory and economics",
     "projectUrl": "https://liamb0t.github.io",
@@ -38,25 +46,28 @@ const projects = [
     "description": "AR scavenger hunt game for a museum exhibition in Germany (Frontend)",
     "projectUrl": "https://www.tvo.de/mediathek/video/porzellanikon-familientag-auf-mission-keramik/",
     "img": CerameterIcon,
+    "tags": ["Nuxt.js", "Typescript"]
   },
   {
     "title": "Fanta Fenix",
     "description": "Generative AI/AR experience for launch of Fanta Zero Orange (Frontend)",
     "projectUrl": "https://www.youtube.com/watch?v=tG_OvpvEKhk",
     "img": FantaIcon,
+    "tags": ["Nuxt.js", "Typescript"]
   },
   {
     "title": "Akki EntdeckAR",
     "description": "Official app of the city of Hildesheim: Interactive AR scavenger hunt on the active playground (Frontend)",
     "projectUrl": "https://play.google.com/store/apps/details?id=com.zaubar.akki&hl=en",
     "img": AkkiIcon,
+    "tags": ["Nuxt.js", "Typescript"]
   },
   {
     "title": "Porzellanikon: Fenster in die vergangenheit",
     "description": "Interactive AR experience and chatbot for porcelain museum in Germany (Frontend)",
     "projectUrl": "https://apps.apple.com/lu/app/porzellanikon/id6747825877?platform=ipad",
     "img": Porz2Icon,
-    "tags": ["9-slicing"]
+    "tags": ["9-slicing", "Nuxt.js", "Typescript"]
   },
   {
     "title": "Bibimhak",

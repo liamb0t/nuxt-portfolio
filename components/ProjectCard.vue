@@ -1,32 +1,32 @@
 <script setup>
 
 defineProps({
-   project: {
+  project: {
     type: Object,
     required: true
-   }
+  }
 })
 
 </script>
 
 <template>
-    <a :href="project.projectUrl" class="project-card">
-        <div class="image-container">
-            <img :src="project.img" :alt="project.title + ' screenshot'">
-            <div class="overlay">
-                <svg class="external-link-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6m4-3h6v6m-11 5L21 3"/>
-                </svg>
-            </div>
-        </div>
-        <div class="info-container">
-            <h3 class="title">{{ project.title }}</h3>
-            <p class="description">{{ project.description }}</p>
-            <div class="tags" v-if="project.tags">
-                <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
-            </div>
-        </div>
-    </a>
+  <a :href="project.projectUrl" class="project-card" target="_blank">
+    <div class="image-container">
+      <img :src="project.img" :alt="project.title + ' screenshot'">
+      <div class="overlay">
+        <svg class="external-link-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6m4-3h6v6m-11 5L21 3" />
+        </svg>
+      </div>
+    </div>
+    <div class="info-container">
+      <h3 class="title">{{ project.title }}</h3>
+      <p class="description">{{ project.description }}</p>
+      <div class="tags" v-if="project.tags">
+        <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
+      </div>
+    </div>
+  </a>
 </template>
 
 <style scoped>
@@ -141,15 +141,15 @@ defineProps({
   .image-container {
     height: 160px;
   }
-  
+
   .info-container {
     padding: 1.25rem;
   }
-  
+
   .title {
     font-size: 1.1rem;
   }
-  
+
   .description {
     font-size: 0.9rem;
   }
